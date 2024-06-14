@@ -1,21 +1,37 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
+import SoundPlayer from 'react-native-sound-player'
 
-export const Title = () => {
+interface TitleProps {
+    title: string;
+    phon: string;
+    audio?: string;
+}
+
+export const Title = ({ phon, title, audio }: TitleProps) => {
+
+    function playAudio() {
+        SoundPlayer.playUrl(audio!)
+    }
+
   return (
     <View style={styles.container}>
         <View style={styles.titleContainer}>
             <Text style={styles.title}>
-                keyboard
+                { title }
             </Text>
             <Text style={styles.fono}>
-                Fonografía
+                { phon }
             </Text>
         </View>
-        <TouchableOpacity style={styles.buttonContainer}>
-            <Icon name='play-outline' size={20} color='purple' />
-        </TouchableOpacity>
+        {
+            audio && (
+                <TouchableOpacity onPress={playAudio} style={styles.buttonContainer}>
+                    <Icon name='play-outline' size={20} color='purple' />
+                </TouchableOpacity>
+            )
+        }
     </View>
   )
 }
