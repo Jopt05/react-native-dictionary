@@ -1,13 +1,16 @@
-import { ActivityIndicator, StyleSheet, Text } from "react-native"
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native"
 import { Header } from "../components/Header"
 import { Search } from "../components/Search"
 import { Title } from "../components/Title"
 import { InfoContainer } from "../components/InfoContainer"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import DictionaryApi from "../api/dictionaryApi"
 import { DicGet } from "../interfaces/DictionaryApiInterfaces"
+import { ThemeContext } from "../context/themeContext"
 
 export const HomeScreen = () => {
+
+    const { themeState } = useContext( ThemeContext );
 
     const [wordInfo, setWordInfo] = useState<DicGet>({} as DicGet);
     const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +37,10 @@ export const HomeScreen = () => {
     
 
     return (
-        <>
+        <View style={{
+            ...styles.container,
+            ...(themeState.isDarkMode) && styles.darkContainer
+        }}>
             <Header />
             <Search onDebounce={(value) => setQuery(value)}/>
             {
@@ -57,11 +63,18 @@ export const HomeScreen = () => {
             {
                 errorMsg != "" && <Text style={styles.errorMsg}>{errorMsg}</Text>
             }
-        </>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        backgroundColor: "white",
+        paddingHorizontal: 20
+    },
+    darkContainer: {
+        backgroundColor: '#050505'
+    },
     errorMsg: {
         color: 'red',
         fontWeight: 'bold',

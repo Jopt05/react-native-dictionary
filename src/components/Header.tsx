@@ -1,25 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Switch, Text, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { ThemeContext } from '../context/themeContext';
 
 export const Header = () => {
+
+    const { changeTheme, themeState } = useContext( ThemeContext );
 
   return (
     <View style={styles.container}>
         <Icon name='book-outline' size={30} color='lightgrey' />
-        <Text style={styles.spacedText}>
+        <Text style={{
+            ...styles.spacedText,
+            color: (themeState.isDarkMode) ? 'white' : 'black'
+        }}>
             Serif
         </Text>
         <Icon name='chevron-down-outline' size={14} color='grey' />
         <View style={styles.divider} />
         <Switch
-            trackColor={{false: 'darkgrey', true: 'darkgrey'}}
+            trackColor={{false: 'darkgrey', true: '#a644ee'}}
             thumbColor={'white'}
-            ios_backgroundColor="#3e3e3e"
-            // onValueChange={toggleSwitch}
-            // value={isEnabled}
+            onValueChange={changeTheme}
+            value={themeState.isDarkMode}
         />
-        <Icon name='moon-outline' size={30} color='darkgrey' />
+        <Icon name={themeState.isDarkMode ? 'sunny-outline' : 'moon-outline'} size={30} color='darkgrey' />
     </View>
   )
 }

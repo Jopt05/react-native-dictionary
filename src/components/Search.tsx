@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDebouncedValue } from '../hooks/useDebounce';
+import { ThemeContext } from '../context/themeContext';
 
 interface SearchInputProps {
     onDebounce: (text: string) => void;
 }
 
 export const Search = ({ onDebounce }: SearchInputProps) => {
+
+    const { themeState } = useContext( ThemeContext );
 
     const [term, setTerm] = useState("hello");
 
@@ -18,9 +21,15 @@ export const Search = ({ onDebounce }: SearchInputProps) => {
   }, [debouncedValue])
 
   return (
-    <View style={styles.container} >
+    <View style={{
+        ...styles.container,
+        backgroundColor: (themeState.isDarkMode) ? "#1f1f1f" : "#f4f4f4"
+        }} >
         <TextInput 
-            style={styles.input}
+            style={{
+                ...styles.input,
+                color: (themeState.isDarkMode) ? 'white' : 'black'
+            }}
             placeholder='Search here'
             autoCorrect={false}
             autoCapitalize={'none'}
@@ -37,14 +46,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'lightgrey',
+        backgroundColor: '#f4f4f4',
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 15,
         marginBottom: 20
     },
     input: {
-        color: 'black',
         flex: 1
     },
     icon: {
