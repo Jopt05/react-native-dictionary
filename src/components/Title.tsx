@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import SoundPlayer from 'react-native-sound-player'
+import { ThemeContext } from '../context/themeContext';
 
 interface TitleProps {
     title: string;
@@ -11,6 +12,8 @@ interface TitleProps {
 
 export const Title = ({ phon, title, audio }: TitleProps) => {
 
+    const { themeState } = useContext(ThemeContext)
+
     function playAudio() {
         SoundPlayer.playUrl(audio!)
     }
@@ -18,7 +21,10 @@ export const Title = ({ phon, title, audio }: TitleProps) => {
   return (
     <View style={styles.container}>
         <View style={styles.titleContainer}>
-            <Text style={styles.title}>
+            <Text style={{
+                ...styles.title,
+                color: (themeState.isDarkMode) ? 'white' : 'black'
+            }}>
                 { title }
             </Text>
             <Text style={styles.fono}>

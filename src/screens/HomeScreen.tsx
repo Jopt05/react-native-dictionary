@@ -23,7 +23,7 @@ export const HomeScreen = () => {
         setIsLoading(true);
         const response = await DictionaryApi.get(query).catch(err => null);
         if( !response ) {
-            setErrorMsg("Palabra no encontrada, intente de nuevo");
+            setErrorMsg("Word not found, try again please");
             setIsLoading(false);
             return;
         }

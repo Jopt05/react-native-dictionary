@@ -1,5 +1,6 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import { themeReducer } from "./themeReducer";
+import { useColorScheme } from "react-native";
 
 // 1. Definir como luce solamente el authstate
 export interface ThemeState {
@@ -14,7 +15,8 @@ export const themeInitialState: ThemeState = {
 // 4. Lo usaremos para decir a React cómo luce el context
 export interface ThemeStateProps {
     themeState: ThemeState;
-    changeTheme: () => void;
+    setLightTheme: () => void;
+    setDarkTheme: () => void;
 }
 
 // 3. Crear el contexto
@@ -23,19 +25,35 @@ export const ThemeContext = createContext({} as ThemeStateProps);
 // 5. Exponder el provedor de estado 
 export const ThemeProvider = ({ children }: any) => {
 
-    const [themeState, dispatch] = useReducer( themeReducer, themeInitialState);
+    const colorsScheme = useColorScheme();
 
-    function changeTheme() {
+    const [themeState, dispatch] = useReducer(themeReducer, themeInitialState);
+
+    function setLightTheme() {
         dispatch({
-            type: 'changeTheme'
+            type: 'setLight'
         });
-    };
+    }
+
+    function setDarkTheme() {
+        dispatch({
+            type: 'setDark'
+        })
+    }
+
+    useEffect(() => {
+        (colorsScheme == 'light')
+          ? setLightTheme()
+          : setDarkTheme()
+      }, [colorsScheme])
+    
 
     return (
         <ThemeContext.Provider
             value={{
               themeState: themeState,
-              changeTheme: changeTheme
+              setDarkTheme,
+              setLightTheme
             }}
         >
             { children }

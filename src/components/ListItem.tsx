@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { ThemeContext } from '../context/themeContext';
 
 interface ListItemProps {
     text: string;
@@ -7,11 +8,17 @@ interface ListItemProps {
 }
 
 export const ListItem = ({ text, example }: ListItemProps) => {
+
+    const { themeState } = useContext(ThemeContext)
+
   return (
     <View style={styles.container}>
         <View style={styles.point} />
         <View>
-            <Text style={styles.text}>
+            <Text style={{
+                ...styles.text,
+                color: (themeState.isDarkMode) ? 'white' : 'black'
+            }}>
                 { text }
             </Text>
             {
@@ -36,7 +43,7 @@ const styles = StyleSheet.create({
         width: 5,
         height: 5,
         borderRadius: 100,
-        backgroundColor: 'red',
+        backgroundColor: 'purple',
         marginHorizontal: 10,
         alignSelf: 'flex-start',
         marginTop: 10

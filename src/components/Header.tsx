@@ -5,7 +5,15 @@ import { ThemeContext } from '../context/themeContext';
 
 export const Header = () => {
 
-    const { changeTheme, themeState } = useContext( ThemeContext );
+    const { setDarkTheme, setLightTheme, themeState } = useContext( ThemeContext );
+
+    function handleChange(value: boolean) {
+        if( value ) {
+            setDarkTheme();
+        } else {
+            setLightTheme();
+        }
+    }
 
   return (
     <View style={styles.container}>
@@ -21,7 +29,7 @@ export const Header = () => {
         <Switch
             trackColor={{false: 'darkgrey', true: '#a644ee'}}
             thumbColor={'white'}
-            onValueChange={changeTheme}
+            onValueChange={(value) => handleChange(value)}
             value={themeState.isDarkMode}
         />
         <Icon name={themeState.isDarkMode ? 'sunny-outline' : 'moon-outline'} size={30} color='darkgrey' />

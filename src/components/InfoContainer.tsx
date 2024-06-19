@@ -1,17 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { ListItem } from './ListItem';
 import { Meaning } from '../interfaces/DictionaryApiInterfaces';
+import { ThemeContext } from '../context/themeContext';
 
 interface InfoContainerProps {
   meaning: Meaning
 }
 
 export const InfoContainer = ({ meaning }: InfoContainerProps) => {
+
+  const { themeState } = useContext(ThemeContext)
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>
+        <Text style={{
+          ...styles.title,
+          color: (themeState.isDarkMode) ? 'white' : 'black'
+        }}>
           { meaning.partOfSpeech }
         </Text>
         <View style={styles.divider}/>

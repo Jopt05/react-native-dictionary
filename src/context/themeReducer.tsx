@@ -1,17 +1,21 @@
 import { ThemeState } from "./themeContext";
 
 // Especifica las acciones posibles
-type AuthAction = { 
-    type: 'changeTheme' 
-};
+type AuthAction = { type: 'setLight' } | { type: 'setDark' };
 
 export const themeReducer = (state: ThemeState, action: AuthAction): ThemeState => {
     
     switch (action.type) {
-        case 'changeTheme':
+        case 'setDark':
             return {
                 ...state,
-                isDarkMode: !state.isDarkMode
+                isDarkMode: true
+            }
+
+        case 'setLight':
+            return {
+                ...state,
+                isDarkMode: false
             }
     
         default:
