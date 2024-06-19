@@ -18,13 +18,13 @@ export const Header = () => {
   return (
     <View style={styles.container}>
         <Icon name='book-outline' size={30} color='lightgrey' />
-        <Text style={{
+        {/* <Text style={{
             ...styles.spacedText,
             color: (themeState.isDarkMode) ? 'white' : 'black'
         }}>
             Serif
         </Text>
-        <Icon name='chevron-down-outline' size={14} color='grey' />
+        <Icon name='chevron-down-outline' size={14} color='grey' /> */}
         <View style={styles.divider} />
         <Switch
             trackColor={{false: 'darkgrey', true: '#a644ee'}}
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     divider: {
+        marginLeft: 'auto',
         height: '100%',
         backgroundColor: 'lightgrey',
         width: 1,

@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
         height: 5,
         borderRadius: 100,
         backgroundColor: 'purple',
-        marginHorizontal: 10,
         alignSelf: 'flex-start',
         marginTop: 10
     },
@@ -52,7 +51,8 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 20,
         lineHeight: 26,
-        marginBottom: 10
+        marginBottom: 10,
+        marginLeft: 5
     },
     exampleText: {
         fontSize: 15,
